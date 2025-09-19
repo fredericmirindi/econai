@@ -1,0 +1,78 @@
+name: Compile LaTeX to PDF
+
+# Trigger the workflow on push to main branch and pull requests
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.tex'
+      - '.github/workflows/compile-latex.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.tex'
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  compile-latex:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v3
+      with:
+        # Main LaTeX file to compile
+        root_file: ai_econometrics.tex
+        # Additional LaTeX compiler arguments
+        args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+        # Enable LaTeX package installation
+        extra_packages: |
+          scheme-basic
+          latex-bin
+          dvips
+          fontspec
+          unicode-math
+          xetex
+          luatex
+        # Working directory
+        working_directory: ./
+        
+    - name: Check if PDF was created
+      run: |
+        if [ -f "ai_econometrics.pdf" ]; then
+          echo "PDF successfully created!"
+          ls -la ai_econometrics.pdf
+        else
+          echo "PDF creation failed!"
+          exit 1
+        fi
+        
+    - name: Upload PDF as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ai_econometrics-pdf
+        path: ai_econometrics.pdf
+        retention-days: 30
+        
+    - name: Upload PDF to releases (on main branch)
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: latest-pdf
+        name: Latest PDF Release
+        body: |
+          Automatically generated PDF from the latest LaTeX source.
+          
+          **Generated on**: ${{ github.event.head_commit.timestamp }}
+          **Commit**: ${{ github.sha }}
+          
+          This release is automatically updated whenever the LaTeX source is modified.
+        files: ai_econometrics.pdf
+        prerelease: false
+        generate_release_notes: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
