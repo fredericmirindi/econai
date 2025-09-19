@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![LaTeX](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
+[![Compile LaTeX](https://github.com/fredericmirindi/econai/actions/workflows/compile-latex.yml/badge.svg)](https://github.com/fredericmirindi/econai/actions/workflows/compile-latex.yml)
 
 A comprehensive study on the use of Artificial Intelligence techniques in econometric analysis, covering theory, applications, methods, and future directions.
 
@@ -18,15 +19,20 @@ This repository contains a detailed LaTeX document that explores the intersectio
 - **Software Tools**: Programming languages, libraries, and frameworks
 - **Future Directions**: Emerging technologies and research opportunities
 
-## 🚀 Quick Start
+## 📥 Get the PDF
 
-### Prerequisites
+### 🤖 Automated Compilation (Recommended)
 
-To compile the LaTeX document, you'll need:
+The PDF is automatically compiled using GitHub Actions whenever the LaTeX source is updated:
+
+1. **Latest Release**: Download the most recent PDF from the [Releases](https://github.com/fredericmirindi/econai/releases/latest) section
+2. **Workflow Artifacts**: Get PDFs from specific commits in the [Actions](https://github.com/fredericmirindi/econai/actions) tab
+
+### 🏠 Local Compilation
+
+#### Prerequisites
 - A LaTeX distribution (e.g., [TeX Live](https://www.tug.org/texlive/), [MiKTeX](https://miktex.org/))
 - Make utility (optional, for using the Makefile)
-
-### Compilation
 
 #### Using Make (Recommended)
 
@@ -61,14 +67,29 @@ pdflatex ai_econometrics.tex  # Run twice for proper references
 # The output will be ai_econometrics.pdf
 ```
 
+## ⚙️ Automated PDF Generation
+
+This repository uses GitHub Actions to automatically:
+
+- ✅ **Compile LaTeX to PDF** on every push to main branch
+- ✅ **Validate compilation** and catch errors early
+- ✅ **Store PDF artifacts** for 30 days
+- ✅ **Create releases** with the latest PDF
+- ✅ **Trigger on .tex file changes** only when needed
+
+The workflow uses the `xu-cheng/latex-action` with full LaTeX package support.
+
 ## 📁 Repository Structure
 
 ```
 econai/
-├── ai_econometrics.tex    # Main LaTeX document
-├── Makefile              # Build automation
-├── README.md             # This file
-└── .gitignore           # Git ignore rules
+├── ai_econometrics.tex           # Main LaTeX document
+├── Makefile                      # Build automation
+├── README.md                     # This file
+├── .gitignore                   # Git ignore rules
+└── .github/
+    └── workflows/
+        └── compile-latex.yml    # GitHub Actions workflow
 ```
 
 ## 📋 Document Contents
@@ -155,6 +176,7 @@ econai/
 - **Code Integration**: Python and R examples throughout
 - **Current Research**: Up-to-date methods and techniques
 - **Professional Formatting**: Publication-ready LaTeX document
+- **Automated Compilation**: GitHub Actions for seamless PDF generation
 
 ## 🤝 Contributing
 
@@ -168,10 +190,12 @@ Contributions are welcome! Please feel free to:
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/YourFeature`)
 3. Make your changes
-4. Test the LaTeX compilation
+4. Test the LaTeX compilation locally
 5. Commit your changes (`git commit -am 'Add YourFeature'`)
 6. Push to the branch (`git push origin feature/YourFeature`)
 7. Create a Pull Request
+
+**Note**: The GitHub Actions workflow will automatically compile and validate your LaTeX changes!
 
 ## 📝 Citation
 
@@ -193,6 +217,7 @@ If you encounter any issues:
 1. Check the [Issues](https://github.com/fredericmirindi/econai/issues) section
 2. Create a new issue with detailed description
 3. Include your LaTeX distribution and system information
+4. Check the [Actions](https://github.com/fredericmirindi/econai/actions) tab for compilation logs
 
 ## 🔗 Related Resources
 
@@ -211,12 +236,14 @@ Planned additions:
 - [ ] Slides for presentations
 - [ ] Video tutorials
 - [ ] Translation to other languages
+- [ ] Automated spell checking in CI/CD
 
 ## 🏆 Acknowledgments
 
 - Economic research community for methodological advances
 - Open-source software developers for tools and libraries
 - Academic institutions promoting interdisciplinary research
+- GitHub Actions community for LaTeX compilation workflows
 
 ---
 
