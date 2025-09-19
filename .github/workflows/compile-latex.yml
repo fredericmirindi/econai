@@ -1,5 +1,9 @@
 name: Compile LaTeX to PDF
 
+# Required permissions for creating releases
+permissions:
+  contents: write
+
 # Trigger the workflow on push to main branch and pull requests
 on:
   push:
